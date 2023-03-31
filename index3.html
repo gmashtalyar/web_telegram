@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 200;
+            color: var(--tg-theme-text-color);
+            background: var(--tg-theme-bg-color);
+        }
+
+        #main {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+
+        img {
+            width: 70px;
+            margin: 30px auto;
+        }
+
+        p {
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        button {
+            border: 0;
+            border-radius: 5px;
+            margin-top: 50px;
+            height: 60px;
+            width: 200px;
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 500ms ease;
+            color: var(--tg-theme-button-color);
+            background: var(--tg-theme-button-text-color);
+        }
+
+        button:hover {
+            background: var(--tg-theme-secondary-bg-color);
+        }
+
+        #form {
+            display: none;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            outline: none;
+            margin: 10px 5%;
+            padding: 15px 10px;
+            font-size: 14px;
+            border: 2px solid silver;
+            border-radius: 5px;
+        }
+
+        input:focus {
+            border-color: #db5d5d;
+        }
+
+    </style>
+    
+</head>
+
+<body>
+
+<div class="row">
+    <div class="sidebar">
+        <select onchange="updateChart(this)">
+            <option value="ariel">Ариэль</option>
+            <option value="msk">КД МСК</option>
+            <option value="spb">КД СПБ</option>
+            <option value="tgn">КД ТГН</option>
+            <option value="smr">КД СМР</option>
+            <option value="proekty">КД ПРОЕКТЫ</option>
+        </select>
+    </div>
+</div>
+
+<canvas id="myChart"></canvas>
+
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+    const values = [
+    {
+        month: 'Январь', sales: { ariel: 17442, msk: 8791, spb: 5998, tgn: 1154, smr: 0, proekty: 1498}
+    },
+    {
+        month: 'Февраль', sales: { ariel: 24489, msk: 11513, spb: 9778, tgn: 1772, smr: 0, proekty: 1425}
+    },
+    {
+        month: 'Март', sales: { ariel: 30471, msk: 13882, spb: 11744, tgn: 1942, smr: 0, proekty: 2903}
+    },
+    {
+        month: 'Апрель', sales: { ariel: 28593, msk: 13240, spb: 10128, tgn: 1315, smr: 0, proekty: 4749}
+    },
+    {
+        month: 'Май', sales: { ariel: 31616, msk: 13121, spb: 10782, tgn: 1575, smr: 0, proekty: 3115}
+    },
+    {
+        month: 'Июнь', sales: { ariel: 28756, msk: 14517, spb: 10436, tgn: 1774, smr: 0, proekty: 4890}
+    },
+    {
+        month: 'Июль', sales: { ariel: 26371, msk: 13472, spb: 11292, tgn: 1946, smr: 0, proekty: 2047}
+    },
+    {
+        month: 'Август', sales: { ariel: 28632, msk: 12359, spb: 9875, tgn: 1597, smr: 66, proekty: 2475}
+    },
+    {
+        month: 'Сентябрь', sales: { ariel: 24105, msk: 12991, spb: 11840, tgn: 1666, smr: 266, proekty: 1949}
+    },
+    {
+        month: 'Октябрь', sales: { ariel: 23811, msk: 11340, spb: 9067, tgn: 1674, smr: 363, proekty: 1661}
+    },
+    {
+        month: 'Ноябрь', sales: { ariel: 23811, msk: 11228, spb: 8702, tgn: 1614, smr: 471, proekty: 1795}
+    },
+    {
+        month: 'Декабрь', sales: { ariel: 25698, msk: 11286, spb: 9346, tgn: 1790, smr: 949, proekty: 2328}
+    }]
+
+    //const labels = ['Январь', 'Февраль' , 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ];
+
+    const data = {
+        //labels: labels,
+        datasets: [{
+            labels: 'Объем продаж, тн',
+            label: 'Объем продаж, тн',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: values,
+            tension: 0.4,
+            parsing: {
+                xAxisKey: 'month',
+                yAxisKey: 'sales.ariel'
+        }
+        },
+
+        ],
+
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {}
+    };
+</script>
+
+<script>
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+
+    function updateChart(option) {
+        myChart.data.datasets[0].parsing.yAxisKey = `sales.${option.value}`;
+        myChart.update();
+    }
+</script>
+
+
+    
+
+</body>
+</html>
