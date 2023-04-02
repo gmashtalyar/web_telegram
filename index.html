@@ -88,7 +88,7 @@
 
 <body>
 
-<!-- <div id="main">
+<div id="main">
     <h1>Online shop</h1>
     <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png">
     <p>Lorem ipsum dolor sit amet, </p>
@@ -101,46 +101,12 @@
         <input type="text" placeholder="Email" id="user_email">
         <input type="text" placeholder="Phone" id="user_phone">
         <button id="order">Place order</button>
-    </form> -->
+    </form>
 
-<div id="chart_apex" class="chartBox"></div>
 
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-
-<script>
-    var options = {
-            chart: {
-                type: 'line'
-            },
-            stroke: {
-                curve: 'smooth'
-            },
-            title: {
-                text: 'Объем продаж',
-            },
-            series: [{
-                name: 'Объем продаж',
-                data: [17442, 24489, 30471, 29432, 28593, 31616, 28756, 26371, 28632, 24105, 23811, 25698]
-            }],
-               "yaxis": [{
-                "labels": {
-                    "formatter": function (val) {
-                        return val.toFixed(2)
-                    }
-                }
-            }],
-            xaxis: {
-                categories: ['Январь', 'Февраль' , 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ]
-            }
-        }
-    var chart = new ApexCharts(document.querySelector("#chart_apex"), options);
-    
-    chart.render();
-    
-    </script>
 
 <script>
     let tg = window.Telegram.WebApp;
